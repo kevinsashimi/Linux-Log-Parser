@@ -1,0 +1,8 @@
+# Path configurations for Red Hat Enterprise Linux 7
+
+system:
+  syslog:
+    - "var/log/messages"
+    - "var/log/secure"
+    - "var/log/cron"
+    - "var/log/audit"

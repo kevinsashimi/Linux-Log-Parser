@@ -1,0 +1,11 @@
+# Path configurations for Ubuntu
+
+system:
+  syslog:
+    - "var/log/syslog"
+    - "var/log/secure"
+    - "var/log/cron"
+    - "var/log/audit"
+
+  auth:
+    - "var/log/auth"
