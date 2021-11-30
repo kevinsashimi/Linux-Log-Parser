@@ -28,19 +28,19 @@ optional arguments:
 Before running the script, ensure that you have downloaded the latest version of Filebeat for Linux systems (64-bit) and unzipped into the same curent working directory of the script (recommended), which is in the *Linux Log Parser* directory.  
 You may download Filebeat [here](https://www.elastic.co/downloads/beats/filebeat).
 
-Once you have dowloaded Filebeat, you may run the script in a terminal.
+Once you have dowloaded Filebeat, you may run the script in a terminal.  
 There are four required arguments that needs to be parsed for the script to run:
 1. -s SYS, --system SYS
-  - This switch specifies the OS type of the triage output that was collected from
+   - This switch specifies the OS type of the triage output that was collected from
 2. -u HOST, --url HOST
-  - This switch specifies the URL of the Elasticsearch instance that is being hosted on
+   - This switch specifies the URL of the Elasticsearch instance that is being hosted on
 3. -i INDEX, --index INDEX
-  - This switch spcifies the name of the index for Filebeat to ingest the logs to on Elasticsearch
-  - Filbeat will create a new index for it if does not exist in your Elasticsearch instance
+   - This switch spcifies the name of the index for Filebeat to ingest the logs to on Elasticsearch
+   - Filbeat will create a new index for it if does not exist in your Elasticsearch instance
 4. DIR
-  - The final required argument requires the directory path of the triage output to parse the logs from
-  - The directory path of the triage output should be relative to the curent working directory of the script, which is the *Linux Log Parser* directory
-  - You may specify more than one triage output of the same type of OS (Please run the script again for each type of OS)
+   - The final required argument requires the directory path of the triage output to parse the logs from
+   - The directory path of the triage output should be relative to the curent working directory of the script, which is the *Linux Log Parser* directory
+   - You may specify more than one triage output of the same type of OS (Please run the script again for each type of OS)
 
 Examples:  
   `python3 linux_main.py -s ubuntu -u http://my-elk.instance.lab:9200 -i ubuntu_client_index ./ubuntu-triage_20211110_062835`  
@@ -49,7 +49,7 @@ Examples:
 
 The following arguments below are optional arguments that may be included in the command for the script to run:
 1. -p [PATH], --path [PATH]
-  - This switch specifies the directory path of Filebeat
-  - The directory path of Filebeat should be relative to the curent working directory of the script, which is the *Linux Log Parser* directory
+   - This switch specifies the directory path of Filebeat
+   - The directory path of Filebeat should be relative to the curent working directory of the script, which is the *Linux Log Parser* directory
   Example:  
   `python3 linux_main.py -s ubuntu -u http://my-elk.instance.lab:9200 -i ubuntu_collection_index -p ../../Downloads/filebeat-7.15.2-linux-x86_64 ./ubuntu-triage_20210731_231550`
