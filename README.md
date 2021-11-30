@@ -43,6 +43,7 @@ There are four required arguments that needs to be parsed for the script to run:
    - You may specify more than one triage output of the same type of OS (Please run the script again for each type of OS)
 
 Example:  
+> Typical usage:  
 `python3 linux_main.py -s ubuntu -u http://my-elk.instance.lab:9200 -i ubuntu_client_index ./ubuntu-triage_20211110_062835`  
 > If there is more than one traige output of the same OS type:  
 `python3 linux_main.py -s rhel7 -u http://my-elk.instance.lab:9200 -i rhel7_client_index ./centos7-triage_20211006_143423 ./centos7-triage_20210913_154539`
