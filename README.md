@@ -53,6 +53,6 @@ The following arguments below are optional arguments that may be included in the
    - This switch specifies the directory path of Filebeat
    - The directory path of Filebeat should be relative to the curent working directory of the script, which is the *Linux Log Parser* directory
 
-Example:  
-The file path for Filebeat is located outside of the current working directory:  
-`python3 linux_main.py -s ubuntu -u http://my-elk.instance.lab:9200 -i ubuntu_collection_index -p ../../Downloads/filebeat-7.15.2-linux-x86_64 ./ubuntu-triage_20210731_231550`
+  Example:  
+  The file path for Filebeat is located outside of the current working directory:  
+  `python3 linux_main.py -s ubuntu -u http://my-elk.instance.lab:9200 -i ubuntu_collection_index -p ../../Downloads/filebeat-7.15.2-linux-x86_64 ./ubuntu-triage_20210731_231550`
