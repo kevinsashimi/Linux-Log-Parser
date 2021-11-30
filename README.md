@@ -25,8 +25,7 @@ optional arguments:
   -p [PATH], --path [PATH]
                         Specify the path for Filebeat directory
 ```
-Before running the script, ensure that you have downloaded the latest version of Filebeat for Linux systems (64-bit) and unzipped into the same curent working directory of the script (recommended), which is in the *Linux Log Parser* directory.  
-You may download Filebeat [here](https://www.elastic.co/downloads/beats/filebeat).
+Before running the script, ensure that you have downloaded the latest version of Filebeat for Linux systems (64-bit) and unzipped into the same curent working directory of the script (recommended), which is in the *Linux Log Parser* directory. You may download Filebeat [here](https://www.elastic.co/downloads/beats/filebeat).
 
 Once you have dowloaded Filebeat, you may run the script in a terminal.  
 There are four required arguments that needs to be parsed for the script to run:
