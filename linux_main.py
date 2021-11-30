@@ -10,7 +10,7 @@ import pprint
 import subprocess
 import requests
 from elasticsearch import Elasticsearch
-from time import sleep
+from time import sleep, perf_counter
 
 
 HOST = "http://chr-elk01.chr.lab:9200"
@@ -19,8 +19,8 @@ HOST = "http://chr-elk01.chr.lab:9200"
 def parse_args():
     parser = argparse.ArgumentParser(description="Parses Linux logs to ELK")
     parser.add_argument('-s', '--system', action='store', nargs=1, metavar='SYS', default=None, help="Specify type of OS")
-    parser.add_argument('-u', '--url', action='store', nargs=1, metavar='HOST', default=None, help="Specify the URL for Elastic Search instance (Including port number)")
-    parser.add_argument('-i', '--index', action='store', nargs=1, metavar='INDEX', default=None, help="Specify the index on Elastic Search")
+    parser.add_argument('-u', '--url', action='store', nargs=1, metavar='HOST', default=None, help="Specify the URL for Elasticsearch instance (Including port number)")
+    parser.add_argument('-i', '--index', action='store', nargs=1, metavar='INDEX', default=None, help="Specify the index on Elasticsearch")
     parser.add_argument('-p', '--path', action='store', nargs='?', metavar='PATH', default=False, help="Specify the path for Filebeat directory")
     parser.add_argument('dir', action='store', nargs=argparse.REMAINDER, metavar='DIR', default=None, help="Specify directory path to extract and parse logs from")
 
@@ -260,6 +260,22 @@ def create_index(es, index_name):
         print(f"Connection error: {e}")
 
 
+def format_time(t):
+    if t >= 59 * 60:
+        hours = int(t / 60 / 60)
+        minutes = int((t - (hours * 60 * 60)) / 60)
+        seconds = t - ((hours * 60 * 60) + (minutes * 60))
+        return f"{hours}hr {minutes}min {seconds:0.2f}s"
+
+    elif t >= 60:
+        minutes = int(t / 60)
+        seconds = t - (minutes * 60)
+        return f"{minutes}min {seconds:0.2f}s"
+
+    else:
+        return f"{t:0.2f}s"
+
+
 def main():
     # Parse arguments
     args = parse_args()
@@ -295,7 +311,7 @@ def main():
     print("Number of triage outputs to upload: " + str(path_count))
     print("Path list of triage outputs:")
     pprint.pp(str(abs_path_list))
-
+    exit()
     if args.url is None:
         print("Please specify the URL for Elastic Search instance (Including port number)")
         sys.exit(1)
@@ -304,12 +320,16 @@ def main():
         print("Please specify the index on Elastic Search")
         sys.exit(1)
 
+    not_found = True
     if args.path:
-        print("Filebeat directory set to " + args.path)
         filebeat_dir = args.path
+        if os.path.isdir(filebeat_dir):
+            print("Filebeat directory set to " + args.path)
+
+        else:
+            not_found = False
 
     else:
-        not_found = True
         for dirs in os.listdir("."):
             if "filebeat" and "linux" in dirs:
                 default_path = os.path.join(".", dirs)
@@ -318,9 +338,10 @@ def main():
                     not_found = False
                     break
 
-        if not_found:
-            print("Filebeat directory not found, please ensure that filebeat is downloaded in the current directory or specify its directory path (use -p option) if located in another folder")
-            sys.exit(1)
+    if not_found:
+        print("Filebeat directory not found, please ensure that filebeat is downloaded in the current working directory or its specified directory path is relative to the current working directory.")
+        print("Use the '-p' option if located in another folder")
+        sys.exit(1)
 
     # Run filebeat for each triage output specified in the list
     for path in abs_path_list:
@@ -368,6 +389,7 @@ def main():
 
         # Parse the logs to filebeat
         print("Uploading logs from \"" + basename + "\" to filebeat...")
+        start_time = perf_counter()
 
         try:
             subprocess.Popen(command).wait()
@@ -376,6 +398,7 @@ def main():
             print(e)
 
         sleep(5)  # Allow some time for the logs to upload completely to filebeat
+        stop_time = perf_counter() - start_time
 
         """
         It is recommended to check and refresh the total document count on Elasticsearch itself directly rather than the
@@ -391,6 +414,7 @@ def main():
         print(f"Total logs uploaded: {uploaded_doc_count}")
         print(f"Total logs failed to upload: {failed_doc_count}")
         print(f"Total logs ingested in {index_name} on Elasticsearch: {post_doc_count}")
+        print(f"Time elapsed: {format_time(stop_time)}")
 
 
 if __name__ == '__main__':
