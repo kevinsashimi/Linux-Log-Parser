@@ -43,9 +43,9 @@ There are four required arguments that needs to be parsed for the script to run:
    - You may specify more than one triage output of the same type of OS (Please run the script again for each type of OS)
 
 Example:  
-    `python3 linux_main.py -s ubuntu -u http://my-elk.instance.lab:9200 -i ubuntu_client_index ./ubuntu-triage_20211110_062835`  
-    If there is more than one traige output of the same OS type:  
-    `python3 linux_main.py -s rhel7 -u http://my-elk.instance.lab:9200 -i rhel7_client_index ./centos7-triage_20211006_143423 ./centos7-triage_20210913_154539`
+  `python3 linux_main.py -s ubuntu -u http://my-elk.instance.lab:9200 -i ubuntu_client_index ./ubuntu-triage_20211110_062835`  
+  If there is more than one traige output of the same OS type:  
+  `python3 linux_main.py -s rhel7 -u http://my-elk.instance.lab:9200 -i rhel7_client_index ./centos7-triage_20211006_143423 ./centos7-triage_20210913_154539`
 
 The following arguments below are optional arguments that may be included in the command line for the script to run:
 1. -p [PATH], --path [PATH]
@@ -53,5 +53,5 @@ The following arguments below are optional arguments that may be included in the
    - The directory path of Filebeat should be relative to the curent working directory of the script, which is the *Linux Log Parser* directory
 
     Example:  
-        The file path for Filebeat is located outside of the current working directory:
-        `python3 linux_main.py -s ubuntu -u http://my-elk.instance.lab:9200 -i ubuntu_collection_index -p ../../Downloads/filebeat-7.15.2-linux-x86_64 ./ubuntu-triage_20210731_231550`
+      The file path for Filebeat is located outside of the current working directory:  
+      `python3 linux_main.py -s ubuntu -u http://my-elk.instance.lab:9200 -i ubuntu_collection_index -p ../../Downloads/filebeat-7.15.2-linux-x86_64 ./ubuntu-triage_20210731_231550`
