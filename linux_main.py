@@ -13,9 +13,6 @@ from elasticsearch import Elasticsearch
 from time import sleep, perf_counter
 
 
-HOST = "http://chr-elk01.chr.lab:9200"
-
-
 def parse_args():
     parser = argparse.ArgumentParser(description="Parses Linux logs to ELK")
     parser.add_argument('-s', '--system', action='store', nargs=1, metavar='SYS', default=None, help="Specify type of OS")
@@ -419,8 +416,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # Command Lines for testing:
-    # python3 linux_main.py -s ubuntu -u http://chr-elk01.chr.lab:9200 -i linux_5000 ./References/ubuntu-triage_20211110_062835
-    # curl -X GET "http://chr-elk01.chr.lab:9200/linux_log_parser_win/_count?pretty"
-    # 8hVVVnYue9ansVg
-    # DNS: 10.11.10.11
