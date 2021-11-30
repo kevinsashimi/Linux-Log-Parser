@@ -47,10 +47,10 @@ Example:
   If there is more than one traige output of the same OS type:  
   `python3 linux_main.py -s rhel7 -u http://my-elk.instance.lab:9200 -i rhel7_client_index ./centos7-triage_20211006_143423 ./centos7-triage_20210913_154539`
 
-The following arguments below are optional arguments that may be included in the command for the script to run:
+The following arguments below are optional arguments that may be included in the command line for the script to run:
 1. -p [PATH], --path [PATH]
    - This switch specifies the directory path of Filebeat
    - The directory path of Filebeat should be relative to the curent working directory of the script, which is the *Linux Log Parser* directory
 
-  Example:  
-  `python3 linux_main.py -s ubuntu -u http://my-elk.instance.lab:9200 -i ubuntu_collection_index -p ../../Downloads/filebeat-7.15.2-linux-x86_64 ./ubuntu-triage_20210731_231550`
+    Example:  
+    `python3 linux_main.py -s ubuntu -u http://my-elk.instance.lab:9200 -i ubuntu_collection_index -p ../../Downloads/filebeat-7.15.2-linux-x86_64 ./ubuntu-triage_20210731_231550`
